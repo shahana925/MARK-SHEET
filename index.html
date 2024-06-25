@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marksheet</title>
+    <!-- New CSS for Styling the Table -->
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <!-- New HTML Table Structure -->
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Science Marks</th>
+                <th>English Marks</th>
+                <th>Total Marks</th>
+                <th>Percentage</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="marksheet-body">
+        </tbody>
+    </table>
+
+    <script>
+        // Existing Code
+        const students = [
+            { name: "Ali", scienceMarks: 90, englishMarks: 70 },
+            { name: "Huzaifa", scienceMarks: 10, englishMarks: 40 },
+            { name: "Asim", scienceMarks: 40, englishMarks: 60 },
+        ];
+
+        function calculateMarks(student) {
+            const total = student.scienceMarks + student.englishMarks;
+            const percentage = (total / 200) * 100;
+            return { percentage, total };
+        }
+
+        // New JavaScript to Populate Table
+        const tbody = document.getElementById('marksheet-body');
+
+        for (let index = 0; index < students.length; index++) {
+            const result = calculateMarks(students[index]);
+            const status = result.percentage >= 40 ? "PASSED" : "FAILED";
+
+            const row = document.createElement('tr');
+
+            row.innerHTML = `
+                <td>${students[index].name}</td>
+                <td>${students[index].scienceMarks}</td>
+                <td>${students[index].englishMarks}</td>
+                <td>${result.total}</td>
+                <td>${result.percentage.toFixed(2)}</td>
+                <td>${status}</td>
+            `;
+
+            tbody.appendChild(row);
+        }
+    </script>
+</body>
+</html>
